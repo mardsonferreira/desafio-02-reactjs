@@ -1,19 +1,11 @@
 import { Button } from './Button';
 
 import '../styles/sidebar.scss';
-interface GenreResponseProps {
-  id: number;
-  name: 'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
-  title: string;
-}
 
-interface SideBarProps {
-  genres: GenreResponseProps[];
-  selectedGenreId: number; 
-  onClickCallback: (id: number) => void;
-}
+import { useMoviesContext } from "../context/moviesContext";
 
-export function SideBar({genres, selectedGenreId, onClickCallback}: SideBarProps) {
+export function SideBar() {
+  const { genres, selectedGenreId, handleClickButton} = useMoviesContext();
   return (
     <nav className="sidebar">
         <span>Watch<p>Me</p></span>
@@ -24,7 +16,7 @@ export function SideBar({genres, selectedGenreId, onClickCallback}: SideBarProps
               key={String(genre.id)}
               title={genre.title}
               iconName={genre.name}
-              onClick={() => onClickCallback(genre.id)}
+              onClick={() => handleClickButton(genre.id)}
               selected={selectedGenreId === genre.id}
             />
           ))}
